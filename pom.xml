@@ -81,7 +81,7 @@
         <profile>
             <id>dev-h2</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <jdbc.driver>org.h2.Driver</jdbc.driver>
@@ -101,23 +101,23 @@
             </dependencies>
         </profile>
         <profile>
-            <id>dev-mysql</id>
+            <id>postgresql</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
-                <jdbc.url>jdbc:mysql://localhost:3306/sirh-db</jdbc.url>
-                <jdbc.user>sirh-db</jdbc.user>
-                <jdbc.pass>sirh-db</jdbc.pass>
+                <jdbc.driver>org.postgresql.Driver</jdbc.driver>
+                <jdbc.url>jdbc:postgresql://localhost:5432/onboard</jdbc.url>
+                <jdbc.user>postgres</jdbc.user>
+                <jdbc.pass>postgres</jdbc.pass>
                 <jpa.hibernate.ddl>create-drop</jpa.hibernate.ddl>
-                <jdbc.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</jdbc.dialect>
+                <jdbc.dialect>org.hibernate.dialect.PostgreSQL9Dialect</jdbc.dialect>
                 <jdbc.connections.max.active>5</jdbc.connections.max.active>
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>mysql</groupId>
-                    <artifactId>mysql-connector-java</artifactId>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
