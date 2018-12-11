@@ -1,11 +1,10 @@
 package dev.model;
 
-import java.util.Map;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Produit {
@@ -18,7 +17,8 @@ public class Produit {
 	private Float prix;
 	private String[] photos;
 	private Integer quantite;
-	private Map<String, Integer> carateristiques;
+	@OneToOne
+	private Caracteristiques carateristiques;
 	private String description;
 	private Boolean actif;
 	
@@ -58,10 +58,10 @@ public class Produit {
 	public void setQuantite(Integer quantite) {
 		this.quantite = quantite;
 	}
-	public Map<String, Integer> getCarateristiques() {
+	public Caracteristiques getCarateristiques() {
 		return carateristiques;
 	}
-	public void setCarateristiques(Map<String, Integer> carateristiques) {
+	public void setCarateristiques(Caracteristiques carateristiques) {
 		this.carateristiques = carateristiques;
 	}
 	public String getDescription() {
