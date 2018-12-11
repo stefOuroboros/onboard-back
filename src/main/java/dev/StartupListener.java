@@ -39,21 +39,21 @@ public class StartupListener {
 
         // Création de deux utilisateurs
 
-        Utilisateur col1 = new Utilisateur();
-        col1.setNom("Admin");
-        col1.setPrenom("DEV");
-        col1.setEmail("admin@dev.fr");
-        col1.setMotDePasse(passwordEncoder.encode("superpass"));
-        col1.setRoles(Arrays.asList(new RoleUtilisateur(col1, Role.ROLE_ADMINISTRATEUR), new RoleUtilisateur(col1, Role.ROLE_UTILISATEUR)));
-        this.utilisateurRepo.save(col1);
+        Utilisateur user1 = new Utilisateur();
+        user1.setNom("Admin");
+        user1.setPrenom("DEV");
+        user1.setEmail("admin@dev.fr");
+        user1.setMotDePasse(passwordEncoder.encode("superpass"));
+        user1.setRoles(Arrays.asList(new RoleUtilisateur(user1, Role.ROLE_ADMINISTRATEUR), new RoleUtilisateur(user1, Role.ROLE_UTILISATEUR)));
+        this.utilisateurRepo.save(user1);
 
-        Utilisateur col2 = new Utilisateur();
-        col2.setNom("User");
-        col2.setPrenom("DEV");
-        col2.setEmail("user@dev.fr");
-        col2.setMotDePasse(passwordEncoder.encode("superpass"));
-        col2.setRoles(Arrays.asList(new RoleUtilisateur(col2, Role.ROLE_UTILISATEUR)));
-        this.utilisateurRepo.save(col2);
+        Utilisateur user2 = new Utilisateur();
+        user2.setNom("User");
+        user2.setPrenom("DEV");
+        user2.setEmail("user@dev.fr");
+        user2.setMotDePasse(passwordEncoder.encode("superpass"));
+        user2.setRoles(Arrays.asList(new RoleUtilisateur(user2, Role.ROLE_UTILISATEUR)));
+        this.utilisateurRepo.save(user2);
     }
 
 }

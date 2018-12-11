@@ -27,7 +27,7 @@ public class AuthentificationController {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return this.utilisateurRepo.findByEmail(email)
                 .map(UtilisateurVM::new)
-                .map(col -> ResponseEntity.ok(col))
+                .map(user -> ResponseEntity.ok(user))
                 .orElse(ResponseEntity.badRequest().build());
     }
 }
