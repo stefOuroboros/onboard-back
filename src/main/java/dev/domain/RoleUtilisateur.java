@@ -3,24 +3,24 @@ package dev.domain;
 import javax.persistence.*;
 
 @Entity
-public class RoleCollegue {
+public class RoleUtilisateur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "collegue_id")
-    private Collegue collegue;
+    @JoinColumn(name = "utilisateur_id")
+    private Utilisateur utilisateur;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public RoleCollegue() {
+    public RoleUtilisateur() {
     }
 
-    public RoleCollegue(Collegue collegue, Role role) {
-        this.collegue = collegue;
+    public RoleUtilisateur(Utilisateur utilisateur, Role role) {
+        this.utilisateur = utilisateur;
         this.role = role;
     }
 
@@ -40,11 +40,11 @@ public class RoleCollegue {
         this.role = role;
     }
 
-    public Collegue getCollegue() {
-        return collegue;
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
     }
 
-    public void setCollegue(Collegue collegue) {
-        this.collegue = collegue;
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 }

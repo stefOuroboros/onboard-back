@@ -1,11 +1,12 @@
 package dev.controller;
 
-import dev.controller.vm.CollegueVM;
-import dev.repository.CollegueRepo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import dev.controller.vm.UtilisateurVM;
+import dev.repository.UtilisateurRepo;
 
 /**
  * WEB API d'authentification.
@@ -15,17 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthentificationController {
 
-    private CollegueRepo collegueRepo;
+    private UtilisateurRepo utilisateurRepo;
 
-    public AuthentificationController(CollegueRepo collegueRepo) {
-        this.collegueRepo = collegueRepo;
+    public AuthentificationController(UtilisateurRepo utilisateurRepo) {
+        this.utilisateurRepo = utilisateurRepo;
     }
 
     @GetMapping("/me")
     public ResponseEntity<?> quiSuisJe() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return this.collegueRepo.findByEmail(email)
-                .map(CollegueVM::new)
+        return this.utilisateurRepo.findByEmail(email)
+                .map(UtilisateurVM::new)
                 .map(col -> ResponseEntity.ok(col))
                 .orElse(ResponseEntity.badRequest().build());
     }

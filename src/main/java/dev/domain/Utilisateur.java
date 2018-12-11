@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Collegue {
+public class Utilisateur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,8 +18,8 @@ public class Collegue {
 
     private String motDePasse;
 
-    @OneToMany(mappedBy = "collegue", cascade = CascadeType.PERSIST)
-    private List<RoleCollegue> roles;
+    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.PERSIST)
+    private List<RoleUtilisateur> roles;
 
     public Long getId() {
         return id;
@@ -45,11 +45,11 @@ public class Collegue {
         this.motDePasse = motDePasse;
     }
 
-    public List<RoleCollegue> getRoles() {
+    public List<RoleUtilisateur> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<RoleCollegue> roles) {
+    public void setRoles(List<RoleUtilisateur> roles) {
         this.roles = roles;
     }
 
