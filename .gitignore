@@ -1,4 +1,6 @@
 target/
+bin/
+pom.xml
 
 *.jar
 !.mvn/wrapper/maven-wrapper.jar
