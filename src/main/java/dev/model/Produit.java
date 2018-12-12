@@ -1,5 +1,7 @@
 package dev.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +25,7 @@ public class Produit {
 	private String description;
 	private Boolean actif;
 	@ManyToMany(mappedBy="articles")
-	private Commande[] achats;
+	private List<Commande> achats;
 
     /**
      * @return Long return the id
@@ -154,14 +156,14 @@ public class Produit {
     /**
      * @return Commande[] return the achats
      */
-    public Commande[] getAchats() {
+    public List<Commande> getAchats() {
         return achats;
     }
 
     /**
      * @param achats the achats to set
      */
-    public void setAchats(Commande[] achats) {
+    public void setAchats(List<Commande> achats) {
         this.achats = achats;
     }
 

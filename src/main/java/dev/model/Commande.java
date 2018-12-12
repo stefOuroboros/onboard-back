@@ -1,13 +1,18 @@
 package dev.model;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapKey;
 import javax.persistence.OneToOne;
 
 import dev.domain.Utilisateur;
@@ -22,7 +27,13 @@ public class Commande {
     @OneToOne
     private Utilisateur client;
     @ManyToMany
-    private Produit[] articles;
+    /*@JoinTable(
+		name="CommandeProduit",
+		joinColumns={@JoinColumn(name="fk_commande", referencedColumnName="id")},
+		inverseJoinColumns={@JoinColumn(name="fk_produit", referencedColumnName="id")})
+    @MapKey(name = "quantite")
+    private Map<Produit,Integer> articles = new HashMap<Produit,Integer>();*/
+    private List<Produit> articles;
     private Date achatDate;
 
     /**
@@ -70,14 +81,14 @@ public class Commande {
     /**
      * @return Produit[] return the articles
      */
-    public Produit[] getArticles() {
+    public List<Produit> getArticles() {
         return articles;
     }
 
     /**
      * @param articles the articles to set
      */
-    public void setArticles(Produit[] articles) {
+    public void setArticles(List<Produit> articles) {
         this.articles = articles;
     }
 
