@@ -29,6 +29,8 @@ public class Produit {
 	private Boolean actif;
 	@ManyToMany(mappedBy="articles")
 	private List<Commande> achats;
+	
+	public Produit() {}
 
 	
 	public Produit(String reference, String nom, double prix,
