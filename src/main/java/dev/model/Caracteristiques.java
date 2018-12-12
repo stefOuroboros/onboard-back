@@ -13,8 +13,17 @@ public class Caracteristiques {
 	int longueur;
 	int largeur;
 	int poids;
-	int[] empatement;
+	double[] empatement;
 	int largeurRoues;
+	
+	public Caracteristiques(int longueur, int largeur, int poids, double[] empatement, int largeurRoues) {
+		this.longueur = longueur;
+		this.largeur = largeur;
+		this.poids = poids;
+		this.empatement = empatement;
+		this.largeurRoues = largeurRoues;
+	}
+	
 	public int getLongueur() {
 		return longueur;
 	}
@@ -33,10 +42,10 @@ public class Caracteristiques {
 	public void setPoids(int poids) {
 		this.poids = poids;
 	}
-	public int[] getEmpatement() {
+	public double[] getEmpatement() {
 		return empatement;
 	}
-	public void setEmpatement(int[] empatement) {
+	public void setEmpatement(double[] empatement) {
 		this.empatement = empatement;
 	}
 	public int getLargeurRoues() {

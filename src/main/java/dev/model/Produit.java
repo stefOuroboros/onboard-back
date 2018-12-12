@@ -17,17 +17,81 @@ public class Produit {
 	private Long id;
 	private String reference;
 	private String nom;
-	private Float prix;
+	private double prix;
 	private String[] photos;
 	private Integer quantite;
 	@OneToOne
-	private Caracteristiques carateristiques;
+	private Caracteristiques caracteristiques;
+	private Marques marques;
+	private Discipline discipline;
+	private int[] flex;
 	private String description;
 	private Boolean actif;
 	@ManyToMany(mappedBy="articles")
 	private List<Commande> achats;
 
-    /**
+	
+	public Produit(String reference, String nom, double prix,
+			String[] photos, int quantite, Caracteristiques caracteristiques,
+			Marques marques, Discipline discipline, int[] flex) {
+	    this.reference = reference;
+	    this.nom = nom;
+	    this.prix = prix;
+	    this.photos = photos;
+	    this.quantite = quantite;
+	    this.caracteristiques = caracteristiques;
+	    this.marques = marques;
+	    this.discipline = discipline;
+	    this.flex = flex;
+	    }
+	
+	
+    public Caracteristiques getCaracteristiques() {
+		return caracteristiques;
+	}
+
+
+	public void setCaracteristiques(Caracteristiques caracteristiques) {
+		this.caracteristiques = caracteristiques;
+	}
+
+
+	public Marques getMarques() {
+		return marques;
+	}
+
+
+	public void setMarques(Marques marques) {
+		this.marques = marques;
+	}
+
+
+	public Discipline getDiscipline() {
+		return discipline;
+	}
+
+
+	public void setDiscipline(Discipline discipline) {
+		this.discipline = discipline;
+	}
+
+
+	public int[] getFlex() {
+		return flex;
+	}
+
+
+	public void setFlex(int[] flex) {
+		this.flex = flex;
+	}
+
+
+	public Boolean getActif() {
+		return actif;
+	}
+
+
+	/**
      * @return Long return the id
      */
     public Long getId() {
@@ -72,14 +136,14 @@ public class Produit {
     /**
      * @return Float return the prix
      */
-    public Float getPrix() {
+    public double getPrix() {
         return prix;
     }
 
     /**
      * @param prix the prix to set
      */
-    public void setPrix(Float prix) {
+    public void setPrix(double prix) {
         this.prix = prix;
     }
 
@@ -115,14 +179,14 @@ public class Produit {
      * @return Caracteristiques return the carateristiques
      */
     public Caracteristiques getCarateristiques() {
-        return carateristiques;
+        return caracteristiques;
     }
 
     /**
      * @param carateristiques the carateristiques to set
      */
     public void setCarateristiques(Caracteristiques carateristiques) {
-        this.carateristiques = carateristiques;
+        this.caracteristiques = carateristiques;
     }
 
     /**
