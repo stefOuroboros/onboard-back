@@ -57,7 +57,7 @@ public class StartupListener {
         user1.setPrenom("DEV");
         user1.setEmail("admin@dev.fr");
         user1.setMotDePasse(passwordEncoder.encode("superpass"));
-        user1.setRoles(Arrays.asList(new RoleUtilisateur(user1, Role.ROLE_ADMINISTRATEUR), new RoleUtilisateur(user1, Role.ROLE_UTILISATEUR)));
+        user1.setRoles(Arrays.asList(new RoleUtilisateur(user1, Role.ROLE_ADMINISTRATEUR)));
         this.utilisateurRepo.save(user1);
 
         Utilisateur user2 = new Utilisateur();
