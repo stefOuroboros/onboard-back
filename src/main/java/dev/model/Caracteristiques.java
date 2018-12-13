@@ -16,6 +16,8 @@ public class Caracteristiques {
 	double[] empatement;
 	int largeurRoues;
 	
+	public Caracteristiques() {}
+	
 	public Caracteristiques(int longueur, int largeur, int poids, double[] empatement, int largeurRoues) {
 		this.longueur = longueur;
 		this.largeur = largeur;
