@@ -3,6 +3,8 @@ package dev.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +24,9 @@ public class Produit {
 	private Integer quantite;
 	@OneToOne
 	private Caracteristiques caracteristiques;
-	private Marques marques;
+	@Enumerated(EnumType.STRING)
+	private Marque marque;
+	@Enumerated(EnumType.STRING)
 	private Discipline discipline;
 	private int[] flex;
 	private String description;
@@ -35,14 +39,14 @@ public class Produit {
 	
 	public Produit(String reference, String nom, double prix,
 			String[] photos, int quantite, Caracteristiques caracteristiques,
-			Marques marques, Discipline discipline, int[] flex) {
+			Marque marque, Discipline discipline, int[] flex) {
 	    this.reference = reference;
 	    this.nom = nom;
 	    this.prix = prix;
 	    this.photos = photos;
 	    this.quantite = quantite;
 	    this.caracteristiques = caracteristiques;
-	    this.marques = marques;
+	    this.marque = marque;
 	    this.discipline = discipline;
 	    this.flex = flex;
 	    }
@@ -58,13 +62,13 @@ public class Produit {
 	}
 
 
-	public Marques getMarques() {
-		return marques;
+	public Marque getMarque() {
+		return marque;
 	}
 
 
-	public void setMarques(Marques marques) {
-		this.marques = marques;
+	public void setMarque(Marque marque) {
+		this.marque = marque;
 	}
 
 
