@@ -5,18 +5,28 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import dev.model.Discipline;
+import dev.model.Marque;
 import dev.model.Produit;
 
 @Service
 @Transactional
 public interface ProduitServices {
 
-	static Specification<Produit> hasMarque(String marque) {
+	static Specification<Produit> hasMarque(Marque marque) {
 	    return (produit, cq, cb) -> cb.equal(produit.get("marque"), marque);
+	}
+	
+	static Specification<Produit> byDiscipline(Discipline discipline) {
+		return (produit, cq, cb) -> cb.equal(produit.get("discipline"), discipline);
 	}
 	 
 	static Specification<Produit> nomContains(String nom) {
 	    return (produit, cq, cb) -> cb.like(produit.get("nom"), "%" + nom + "%");
+	}
+	
+	static Specification<Produit> refContains(String reference) {
+	    return (produit, cq, cb) -> cb.like(produit.get("reference"), "%" + reference + "%");
 	}
 	
 }
