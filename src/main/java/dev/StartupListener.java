@@ -15,7 +15,7 @@ import dev.domain.Utilisateur;
 import dev.domain.Version;
 import dev.model.Caracteristiques;
 import dev.model.Discipline;
-import dev.model.Marques;
+import dev.model.Marque;
 import dev.model.Produit;
 import dev.repository.CaracteristiquesRepo;
 import dev.repository.ProduitRepo;
@@ -69,39 +69,39 @@ public class StartupListener {
         this.utilisateurRepo.save(user2);
         
         Produit prod1 = new Produit("1", "TARAB", 459.9, new String[]{"a", "b"},
-        		10, this.caracteristiquesRepo.save(new Caracteristiques(119, 24, 3900, new double[]{81.9}, 42 )), Marques.LOADED, Discipline.DANCING, new int[]{1});
+        		10, this.caracteristiquesRepo.save(new Caracteristiques(119, 24, 3900, new double[]{81.9}, 42 )), Marque.LOADED, Discipline.DANCING, new int[]{1});
         this.produitRepo.save(prod1);
 
         Produit prod2 = new Produit("2", "BHANGRA", 329.4, new String[]{},
-        		10, this.caracteristiquesRepo.save(new Caracteristiques(123, 24, 2540, new double[] {83.2}, 65)), Marques.LOADED, Discipline.DANCING, new int[] {1,2,3}); 
+        		10, this.caracteristiquesRepo.save(new Caracteristiques(123, 24, 2540, new double[] {83.2}, 65)), Marque.LOADED, Discipline.DANCING, new int[] {1,2,3}); 
         this.produitRepo.save(prod2);
 
         Produit prod3 = new Produit("3", "BUTO ODORI ZINGANA", 536,new String[]{},
-        2, this.caracteristiquesRepo.save(new Caracteristiques(125, 23, 2500, new double[] {88}, 65)), Marques.MAJUSTUS, Discipline.DANCING, new int[]{1,2,3}); 
+        2, this.caracteristiquesRepo.save(new Caracteristiques(125, 23, 2500, new double[] {88}, 65)), Marque.MAJUSTUS, Discipline.DANCING, new int[]{1,2,3}); 
         this.produitRepo.save(prod3);
         
         Produit prod4 = new Produit("4", "BALLAR", 350, new String[]{},
-        5, this.caracteristiquesRepo.save(new Caracteristiques(121, 24, 2500, new double[]{77,83}, 65)), Marques.LUCALONGBOARD, Discipline.DANCING, new int[]{1,2}); 
+        5, this.caracteristiquesRepo.save(new Caracteristiques(121, 24, 2500, new double[]{77,83}, 65)), Marque.LUCALONGBOARD, Discipline.DANCING, new int[]{1,2}); 
         this.produitRepo.save(prod4);
         
         Produit prod5 = new Produit("5", "RUM RUNNER CARBON", 399.95, new String[]{},
-        		10, this.caracteristiquesRepo.save(new Caracteristiques(88, 25, 1900, new double[]{59.7,67.3}, 70)), Marques.MOONSHINE, Discipline.DOWNHILL, new int[] {1}); 
+        		10, this.caracteristiquesRepo.save(new Caracteristiques(88, 25, 1900, new double[]{59.7,67.3}, 70)), Marque.MOONSHINE, Discipline.DOWNHILL, new int[] {1}); 
         this.produitRepo.save(prod5);
 
         Produit prod6 = new Produit("6", "OSTEON OBSERVER", 329, new String[]{},
-        		10, this.caracteristiquesRepo.save(new Caracteristiques(90, 23, 2400, new double[]{61.5}, 70)), Marques.LANDYACHTZ, Discipline.DOWNHILL, new int[] {1}); 
+        		10, this.caracteristiquesRepo.save(new Caracteristiques(90, 23, 2400, new double[]{61.5}, 70)), Marque.LANDYACHTZ, Discipline.DOWNHILL, new int[] {1}); 
         this.produitRepo.save(prod6);
 
         Produit prod7 = new Produit("7", "TESSERACT CANTELATED", 223.95, new String[]{},
-        		30, this.caracteristiquesRepo.save(new Caracteristiques(84, 24, 1800, new double[]{62,66}, 70)), Marques.LOADED, Discipline.DOWNHILL, new int[] {1}); 
+        		30, this.caracteristiquesRepo.save(new Caracteristiques(84, 24, 1800, new double[]{62,66}, 70)), Marque.LOADED, Discipline.DOWNHILL, new int[] {1}); 
         this.produitRepo.save(prod7);
 
         Produit prod8 = new Produit("8", "OVERLAND", 201.95, new String[]{},
-        		4, this.caracteristiquesRepo.save(new Caracteristiques(94, 24, 1600, new double[]{53,56}, 60)), Marques.LOADED, Discipline.FREESTYLE, new int[] {1}); 
+        		4, this.caracteristiquesRepo.save(new Caracteristiques(94, 24, 1600, new double[]{53,56}, 60)), Marque.LOADED, Discipline.FREESTYLE, new int[] {1}); 
         this.produitRepo.save(prod8);
 
         Produit prod9 = new Produit("9", "CI FLYER MERRICK", 159, new String[]{},
-        		7, this.caracteristiquesRepo.save(new Caracteristiques(78, 24, 1600,new double[]{} , 55)), Marques.CARVER, Discipline.CRUISING, new int[] {1}); 
+        		7, this.caracteristiquesRepo.save(new Caracteristiques(78, 24, 1600,new double[]{} , 55)), Marque.CARVER, Discipline.CRUISING, new int[] {1}); 
         this.produitRepo.save(prod9);
         
     }
