@@ -16,7 +16,6 @@ import dev.domain.Version;
 import dev.model.Discipline;
 import dev.model.Marque;
 import dev.model.Produit;
-import dev.repository.CaracteristiquesRepo;
 import dev.repository.ProduitRepo;
 import dev.repository.UtilisateurRepo;
 import dev.repository.VersionRepo;
