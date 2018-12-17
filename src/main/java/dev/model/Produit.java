@@ -41,11 +41,10 @@ public class Produit {
 	
 	public Produit() {}
 
-	public Produit(Long id, String reference, String nom, double prix, String photos, Integer quantite, int longueur,
+	public Produit(String reference, String nom, double prix, String photos, Integer quantite, int longueur,
 			int largeur, int poids, double empatement, int largeurRoues, Marque marque, Discipline discipline,
 			String description, Boolean actif, List<Commande> achats) {
 		super();
-		this.id = id;
 		this.reference = reference;
 		this.nom = nom;
 		this.prix = prix;
@@ -63,14 +62,26 @@ public class Produit {
 		this.achats = achats;
 	}
 
-	public Long getId() {
-		return id;
+	public Produit(String reference, String nom, double prix, String photos, Integer quantite, int longueur,
+			int largeur, int poids, double empatement, int largeurRoues, Marque marque, Discipline discipline, Boolean actif) {
+		super();
+		this.reference = reference;
+		this.nom = nom;
+		this.prix = prix;
+		this.photos = photos;
+		this.quantite = quantite;
+		this.longueur = longueur;
+		this.largeur = largeur;
+		this.poids = poids;
+		this.empatement = empatement;
+		this.largeurRoues = largeurRoues;
+		this.marque = marque;
+		this.discipline = discipline;
+		this.description = description;
+		this.actif = actif;
+		this.achats = achats;
 	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	
 	public String getReference() {
 		return reference;
 	}
