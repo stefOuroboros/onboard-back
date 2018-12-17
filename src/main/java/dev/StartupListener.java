@@ -13,10 +13,6 @@ import dev.domain.Role;
 import dev.domain.RoleUtilisateur;
 import dev.domain.Utilisateur;
 import dev.domain.Version;
-import dev.model.Caracteristiques;
-import dev.model.Discipline;
-import dev.model.Marque;
-import dev.model.Produit;
 import dev.repository.CaracteristiquesRepo;
 import dev.repository.ProduitRepo;
 import dev.repository.UtilisateurRepo;
@@ -31,8 +27,8 @@ public class StartupListener {
 	
 	@Autowired
     private ProduitRepo produitRepo;
-	@Autowired
-	private CaracteristiquesRepo caracteristiquesRepo;
+	/*@Autowired
+	private CaracteristiquesRepo caracteristiquesRepo;*/
 	
     private String appVersion;
     private VersionRepo versionRepo;
@@ -68,7 +64,7 @@ public class StartupListener {
         user2.setRoles(Arrays.asList(new RoleUtilisateur(user2, Role.ROLE_UTILISATEUR)));
         this.utilisateurRepo.save(user2);
         
-        Produit prod1 = new Produit("1", "TARAB", 459.9, new String[]{"a", "b"},
+       /* Produit prod1 = new Produit("1", "TARAB", 459.9, new String[]{"a", "b"},
         		10, this.caracteristiquesRepo.save(new Caracteristiques(119, 24, 3900, new double[]{81.9}, 42 )), Marque.LOADED, Discipline.DANCING, new int[]{1});
         this.produitRepo.save(prod1);
 
@@ -102,7 +98,7 @@ public class StartupListener {
 
         Produit prod9 = new Produit("9", "CI FLYER MERRICK", 159, new String[]{},
         		7, this.caracteristiquesRepo.save(new Caracteristiques(78, 24, 1600,new double[]{} , 55)), Marque.CARVER, Discipline.CRUISING, new int[] {1}); 
-        this.produitRepo.save(prod9);
+        this.produitRepo.save(prod9);*/
         
     }
 

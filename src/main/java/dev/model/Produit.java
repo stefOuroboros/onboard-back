@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Produit {
@@ -20,221 +19,179 @@ public class Produit {
 	private String reference;
 	private String nom;
 	private double prix;
-	private String[] photos;
+	private String photos;
 	private Integer quantite;
-	@OneToOne
-	private Caracteristiques caracteristiques;
+	int longueur;
+	int largeur;
+	int poids;
+	double empatement;
+	int largeurRoues;
+	/*@OneToOne
+	private Caracteristiques caracteristiques;*/
 	@Enumerated(EnumType.STRING)
 	private Marque marque;
 	@Enumerated(EnumType.STRING)
 	private Discipline discipline;
-	private int[] flex;
+	//private int[] flex;
 	private String description;
 	private Boolean actif;
+	
 	@ManyToMany(mappedBy="articles")
 	private List<Commande> achats;
 	
 	public Produit() {}
 
-	
-	public Produit(String reference, String nom, double prix,
-			String[] photos, int quantite, Caracteristiques caracteristiques,
-			Marque marque, Discipline discipline, int[] flex) {
-	    this.reference = reference;
-	    this.nom = nom;
-	    this.prix = prix;
-	    this.photos = photos;
-	    this.quantite = quantite;
-	    this.caracteristiques = caracteristiques;
-	    this.marque = marque;
-	    this.discipline = discipline;
-	    this.flex = flex;
-	    }
-	
-	
-    public Caracteristiques getCaracteristiques() {
-		return caracteristiques;
+	public Produit(Long id, String reference, String nom, double prix, String photos, Integer quantite, int longueur,
+			int largeur, int poids, double empatement, int largeurRoues, Marque marque, Discipline discipline,
+			String description, Boolean actif, List<Commande> achats) {
+		super();
+		this.id = id;
+		this.reference = reference;
+		this.nom = nom;
+		this.prix = prix;
+		this.photos = photos;
+		this.quantite = quantite;
+		this.longueur = longueur;
+		this.largeur = largeur;
+		this.poids = poids;
+		this.empatement = empatement;
+		this.largeurRoues = largeurRoues;
+		this.marque = marque;
+		this.discipline = discipline;
+		this.description = description;
+		this.actif = actif;
+		this.achats = achats;
 	}
 
-
-	public void setCaracteristiques(Caracteristiques caracteristiques) {
-		this.caracteristiques = caracteristiques;
+	public Long getId() {
+		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public double getPrix() {
+		return prix;
+	}
+
+	public void setPrix(double prix) {
+		this.prix = prix;
+	}
+
+	public String getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(String photos) {
+		this.photos = photos;
+	}
+
+	public Integer getQuantite() {
+		return quantite;
+	}
+
+	public void setQuantite(Integer quantite) {
+		this.quantite = quantite;
+	}
+
+	public int getLongueur() {
+		return longueur;
+	}
+
+	public void setLongueur(int longueur) {
+		this.longueur = longueur;
+	}
+
+	public int getLargeur() {
+		return largeur;
+	}
+
+	public void setLargeur(int largeur) {
+		this.largeur = largeur;
+	}
+
+	public int getPoids() {
+		return poids;
+	}
+
+	public void setPoids(int poids) {
+		this.poids = poids;
+	}
+
+	public double getEmpatement() {
+		return empatement;
+	}
+
+	public void setEmpatement(double empatement) {
+		this.empatement = empatement;
+	}
+
+	public int getLargeurRoues() {
+		return largeurRoues;
+	}
+
+	public void setLargeurRoues(int largeurRoues) {
+		this.largeurRoues = largeurRoues;
+	}
 
 	public Marque getMarque() {
 		return marque;
 	}
 
-
 	public void setMarque(Marque marque) {
 		this.marque = marque;
 	}
-
 
 	public Discipline getDiscipline() {
 		return discipline;
 	}
 
-
 	public void setDiscipline(Discipline discipline) {
 		this.discipline = discipline;
 	}
 
-
-	public int[] getFlex() {
-		return flex;
+	public String getDescription() {
+		return description;
 	}
 
-
-	public void setFlex(int[] flex) {
-		this.flex = flex;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-
 
 	public Boolean getActif() {
 		return actif;
 	}
 
+	public void setActif(Boolean actif) {
+		this.actif = actif;
+	}
 
-	/**
-     * @return Long return the id
-     */
-    public Long getId() {
-        return id;
-    }
+	public List<Commande> getAchats() {
+		return achats;
+	}
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setAchats(List<Commande> achats) {
+		this.achats = achats;
+	}
 
-    /**
-     * @return String return the reference
-     */
-    public String getReference() {
-        return reference;
-    }
-
-    /**
-     * @param reference the reference to set
-     */
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
-
-    /**
-     * @return String return the nom
-     */
-    public String getNom() {
-        return nom;
-    }
-
-    /**
-     * @param nom the nom to set
-     */
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    /**
-     * @return Float return the prix
-     */
-    public double getPrix() {
-        return prix;
-    }
-
-    /**
-     * @param prix the prix to set
-     */
-    public void setPrix(double prix) {
-        this.prix = prix;
-    }
-
-    /**
-     * @return String[] return the photos
-     */
-    public String[] getPhotos() {
-        return photos;
-    }
-
-    /**
-     * @param photos the photos to set
-     */
-    public void setPhotos(String[] photos) {
-        this.photos = photos;
-    }
-
-    /**
-     * @return Integer return the quantite
-     */
-    public Integer getQuantite() {
-        return quantite;
-    }
-
-    /**
-     * @param quantite the quantite to set
-     */
-    public void setQuantite(Integer quantite) {
-        this.quantite = quantite;
-    }
-
-    /**
-     * @return Caracteristiques return the carateristiques
-     */
-    public Caracteristiques getCarateristiques() {
-        return caracteristiques;
-    }
-
-    /**
-     * @param carateristiques the carateristiques to set
-     */
-    public void setCarateristiques(Caracteristiques carateristiques) {
-        this.caracteristiques = carateristiques;
-    }
-
-    /**
-     * @return String return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * @return Boolean return the actif
-     */
-    public Boolean isActif() {
-        return actif;
-    }
-
-    /**
-     * @param actif the actif to set
-     */
-    public void setActif(Boolean actif) {
-        this.actif = actif;
-    }
-
-    /**
-     * @return Commande[] return the achats
-     */
-    public List<Commande> getAchats() {
-        return achats;
-    }
-
-    /**
-     * @param achats the achats to set
-     */
-    public void setAchats(List<Commande> achats) {
-        this.achats = achats;
-    }
+	
+	
 
 }
