@@ -16,7 +16,6 @@ import dev.domain.Version;
 import dev.model.Discipline;
 import dev.model.Marque;
 import dev.model.Produit;
-import dev.repository.CaracteristiquesRepo;
 import dev.repository.ProduitRepo;
 import dev.repository.UtilisateurRepo;
 import dev.repository.VersionRepo;
@@ -100,7 +99,7 @@ public class StartupListener {
         this.produitRepo.save(prod8);
 
         Produit prod9 = new Produit("9", "CI FLYER MERRICK", 159, "i",
-        		7, 78, 24, 1600,00.00 , 55, Marque.CARVER, Discipline.CRUISING, true); 
+        		7, 78, 24, 1600, 00.01 , 55, Marque.CARVER, Discipline.CRUISING, true); 
         this.produitRepo.save(prod9);
         
     }

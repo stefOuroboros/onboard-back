@@ -1,8 +1,11 @@
 package dev.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import dev.model.Discipline;
 import dev.model.Marque;
 
+@CrossOrigin
 public class ProduitForm {
 	private String reference;
 	private String nom;
