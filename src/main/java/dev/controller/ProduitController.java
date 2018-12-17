@@ -3,6 +3,7 @@ package dev.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import dev.controller.vm.ProduitVM;
 import dev.exception.FunctionalException;
-import dev.model.Discipline;
-import dev.model.Marque;
 import dev.model.Produit;
 import dev.repository.ProduitRepo;
 import dev.service.ProduitServices;
@@ -49,8 +48,7 @@ public class ProduitController extends AbstractController {
 	
 	@GetMapping("/count")
 	public long getResultNumberByCriteria(@RequestParam String nom, @RequestParam String marque, @RequestParam String discipline,
-			@RequestParam String reference,
-			@RequestParam double prixMin, @RequestParam double prixMax) {
+			@RequestParam String reference, @RequestParam double prixMin, @RequestParam double prixMax) {
 		return produitService.findByNameCatPriceOrd(nom, reference, marque, discipline, prixMax, prixMin, "asc", 1, Integer.MAX_VALUE).stream().count();
 	}
 	
@@ -78,7 +76,6 @@ public class ProduitController extends AbstractController {
 		pro.setDescription(produitForm.getDescription());
 		pro.setActif(produitForm.isActif());
 
-		
 		if (produitRepo.findByNom(pro.getNom()).length>0) {
 			throw new FunctionalException("Un produit existe déjà avec ce nom:"+pro.getNom());
 		}
@@ -87,9 +84,4 @@ public class ProduitController extends AbstractController {
 		return new ResponseEntity<>(HttpStatus.OK);
 		
 	}
-//	@GetMapping("/{marque}")
-//	public List<Produit> findByMarque(@PathVariable String marque) {
-//		List<Produit> produits = produitRepo.findAll(ProduitServices.hasMarque(marque));
-//		return produits;
-//	}
 }

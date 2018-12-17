@@ -9,4 +9,11 @@ public class StringUtils {
 		return ch == null || ch.trim().isEmpty() || ch.trim().equals("null");
 	}
 	
+	public static String convert(String ch) {
+		if (ch!=null && ch.equals("null")) {
+			return "";
+		}
+		return ch;
+	}
+	
 }

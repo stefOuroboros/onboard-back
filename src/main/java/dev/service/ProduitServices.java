@@ -1,5 +1,6 @@
 package dev.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +12,8 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import dev.model.Discipline;
+import dev.model.Marque;
 import dev.model.Produit;
 @Service
 @Transactional
@@ -19,45 +22,45 @@ public class ProduitServices {
 	@PersistenceContext
 	private EntityManager em;
 
-	public List<Produit> findByNameCatPriceOrd(String nom, String reference, String marque, String discipline, double prixMax, double prixMin, String sort, int pageNbr, int nbrByPage) {
+	public List<Produit> findByNameCatPriceOrd(String nom, String reference, String marque, String discipline,
+			double prixMax, double prixMin, String sort, int pageNbr, int nbrByPage) {
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		CriteriaQuery<Produit> criteriaQuery = criteriaBuilder.createQuery(Produit.class);
 		Root<Produit> productRoot = criteriaQuery.from(Produit.class);
 
+		
 		if(StringUtils.isEmpty(marque) && StringUtils.isEmpty(discipline)) {
-			
-			Predicate namePredicate = criteriaBuilder.like(productRoot.get("nom"), "%" + nom + "%");
-			Predicate referPrecidate = criteriaBuilder.like(productRoot.get("reference"), "%" + reference + "%");
+			Predicate namePredicate = criteriaBuilder.like(productRoot.get("nom"), "%" + StringUtils.convert(nom) + "%");
+			Predicate referPrecidate = criteriaBuilder.like(productRoot.get("reference"), "%" + StringUtils.convert(reference) + "%");
 			Predicate maxPredicate = criteriaBuilder.lessThanOrEqualTo(productRoot.get("prix"), prixMax);
 			Predicate minPredicate = criteriaBuilder.greaterThanOrEqualTo(productRoot.get("prix"), prixMin);
-			criteriaQuery.where(namePredicate, referPrecidate, minPredicate, maxPredicate);
+			criteriaQuery.where(namePredicate, referPrecidate, minPredicate, maxPredicate);			
 
 		} else if (StringUtils.isEmpty(marque)) {
-			
-			Predicate namePredicate = criteriaBuilder.like(productRoot.get("nom"), "%" + nom + "%");
-			Predicate referPrecidate = criteriaBuilder.like(productRoot.get("reference"), "%" + reference + "%");
-			Predicate discPrecidate = criteriaBuilder.like(productRoot.get("discipline"), "%" + discipline + "%");
+			Predicate namePredicate = criteriaBuilder.like(productRoot.get("nom"), "%" + StringUtils.convert(nom) + "%");
+			Predicate referPrecidate = criteriaBuilder.like(productRoot.get("reference"), "%" + StringUtils.convert(reference) + "%");
+			Predicate discPrecidate = criteriaBuilder.equal(productRoot.get("discipline"), Discipline.valueOf(discipline));
 			Predicate maxPredicate = criteriaBuilder.lessThanOrEqualTo(productRoot.get("prix"), prixMax);
 			Predicate minPredicate = criteriaBuilder.greaterThanOrEqualTo(productRoot.get("prix"), prixMin);
 			criteriaQuery.where(namePredicate, referPrecidate, discPrecidate, minPredicate, maxPredicate);
 		} else if (StringUtils.isEmpty(discipline)) {
 			
-			Predicate namePredicate = criteriaBuilder.like(productRoot.get("nom"), "%" + nom + "%");
-			Predicate referPrecidate = criteriaBuilder.like(productRoot.get("reference"), "%" + reference + "%");
-			Predicate discPrecidate = criteriaBuilder.like(productRoot.get("marque"), "%" + marque + "%");
+			Predicate namePredicate = criteriaBuilder.like(productRoot.get("nom"), "%" + StringUtils.convert(nom) + "%");
+			Predicate referPrecidate = criteriaBuilder.like(productRoot.get("reference"), "%" + StringUtils.convert(reference) + "%");
+			Predicate discPrecidate = criteriaBuilder.equal(productRoot.get("marque"), Marque.valueOf(marque));
 			Predicate maxPredicate = criteriaBuilder.lessThanOrEqualTo(productRoot.get("prix"), prixMax);
 			Predicate minPredicate = criteriaBuilder.greaterThanOrEqualTo(productRoot.get("prix"), prixMin);
 			criteriaQuery.where(namePredicate, referPrecidate, discPrecidate, minPredicate, maxPredicate);
 		
 		} else {
 		
-		Predicate namePredicate = criteriaBuilder.like(productRoot.get("nom"), "%" + nom + "%");
-		Predicate referPrecidate = criteriaBuilder.like(productRoot.get("reference"), "%" + reference + "%");
-		Predicate marquePrecidate = criteriaBuilder.like(productRoot.get("marque"), "%" + marque + "%");
-		Predicate discPrecidate = criteriaBuilder.like(productRoot.get("discipline"), "%" + discipline + "%");
-		Predicate maxPredicate = criteriaBuilder.lessThanOrEqualTo(productRoot.get("prix"), prixMax);
-		Predicate minPredicate = criteriaBuilder.greaterThanOrEqualTo(productRoot.get("prix"), prixMin);
-		criteriaQuery.where(namePredicate, referPrecidate, marquePrecidate, discPrecidate, minPredicate, maxPredicate);
+			Predicate namePredicate = criteriaBuilder.like(productRoot.get("nom"), "%" + StringUtils.convert(nom) + "%");
+			Predicate referPrecidate = criteriaBuilder.like(productRoot.get("reference"), "%" + StringUtils.convert(reference) + "%");
+			Predicate marquePrecidate = criteriaBuilder.equal(productRoot.get("marque"), Marque.valueOf(marque));
+			Predicate discPrecidate = criteriaBuilder.equal(productRoot.get("discipline"), Discipline.valueOf(discipline));
+			Predicate maxPredicate = criteriaBuilder.lessThanOrEqualTo(productRoot.get("prix"), prixMax);
+			Predicate minPredicate = criteriaBuilder.greaterThanOrEqualTo(productRoot.get("prix"), prixMin);
+			criteriaQuery.where(namePredicate, referPrecidate, marquePrecidate, discPrecidate, minPredicate, maxPredicate);
 		
 		}
 
@@ -70,17 +73,5 @@ public class ProduitServices {
 		return em.createQuery(criteriaQuery).setFirstResult((pageNbr - 1) * nbrByPage).setMaxResults(nbrByPage)
 				.getResultList();
 	}
-//	
-//	
-//	
-//
-//	public List<Produit> findByTypeLimited(String category, int number) {
-//		
-//		//List<ProduitVM> listProd = (Math.random() * (listProd.size() - 1));
-//		
-//		TypedQuery<Produit> products = em.createQuery("SELECT p FROM Produit AS p WHERE p.category = :category", Produit.class);
-//		products.setParameter("category", category);
-//		return products.getResultList();
-//		
-//	}
+	
 }
