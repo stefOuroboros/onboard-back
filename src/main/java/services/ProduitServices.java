@@ -1,23 +1,19 @@
 package services;
 
 import javax.transaction.Transactional;
-
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import dev.model.Discipline;
-import dev.model.Marque;
 import dev.model.Produit;
 
 @Service
 @Transactional
 public interface ProduitServices {
 
-	static Specification<Produit> hasMarque(Marque marque) {
+	static Specification<Produit> hasMarque(String marque) {
 	    return (produit, cq, cb) -> cb.equal(produit.get("marque"), marque);
 	}
 	
-	static Specification<Produit> byDiscipline(Discipline discipline) {
+	static Specification<Produit> byDiscipline(String discipline) {
 		return (produit, cq, cb) -> cb.equal(produit.get("discipline"), discipline);
 	}
 	 

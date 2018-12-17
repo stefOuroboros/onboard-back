@@ -1,7 +1,8 @@
 package dev.controller;
 
-import java.util.List;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +17,22 @@ import org.springframework.web.bind.annotation.RestController;
 import dev.exception.FunctionalException;
 import dev.model.Discipline;
 import dev.model.Marque;
+import dev.controller.vm.ProduitVM;
+import dev.exception.FunctionalException;
 import dev.model.Produit;
 import dev.repository.ProduitRepo;
-import services.ProduitServices;
+import dev.service.ProduitServices;
 
 @CrossOrigin
-@RestController
+@RestController()
+
 @RequestMapping("/produits")
 public class ProduitController extends AbstractController {
 	
 	@Autowired
 	ProduitRepo produitRepo;
-	
+	@Autowired
+	ProduitServices produitService;
 	
 	@GetMapping
 	public List<Produit> getProduits() {
@@ -35,93 +40,24 @@ public class ProduitController extends AbstractController {
 	}
 	
 	@GetMapping("/search")
-	public List<Produit> recherche(@RequestParam String nom, @RequestParam Marque marque, @RequestParam Discipline discipline, @RequestParam String reference) {
-
-		// RECHERCHE SI SEULEMENT LE NOM EST PRESENT
-		
-		if (!nom.isEmpty() && marque == null && discipline == null && reference.isEmpty()){
-			List<Produit> produits = produitRepo.findAll(ProduitServices.nomContains(nom));
-			return produits;
-		} 
-		
-		// RECHERCHE SI SEULEMENT LA REFERENCE EST PRESENTE
-		
-		else if (nom.isEmpty() && marque == null && discipline == null && !reference.isEmpty()){
-			List<Produit> produits = produitRepo.findAll(ProduitServices.refContains(reference));
-			return produits;
-		}
-		
-		// RECHERCHE SI SEULEMENT LA MARQUE EST PRESENTE
-		
-		else if (nom.isEmpty() && reference.isEmpty() && discipline == null && marque != null) {
-			List<Produit> produits = produitRepo.findAll(ProduitServices.hasMarque(marque));
-			return produits;
-		} 
-		
-		// RECHERCHE SI SEULEMENT LA DISCIPLINE EST PRESENTE
-		
-		else if (nom.isEmpty() && reference.isEmpty() && discipline != null && marque == null) {
-			List<Produit> produits = produitRepo.findAll(ProduitServices.byDiscipline(discipline));
-			return produits;
-		}
-		
-		// RECHERCHE SI NOM ET MARQUE EST PRESENT
-		
-		else if (!nom.isEmpty() && reference.isEmpty() && discipline == null && marque != null) {
-			List<Produit> produits = produitRepo.findAll(ProduitServices.hasMarque(marque).and(ProduitServices.nomContains(nom)));
-			return produits;
-		}
-		
-		// RECHERCHE SI NOM ET DISCIPLINE EST PRESENT
-			
-		else if (!nom.isEmpty() && reference.isEmpty() && discipline != null && marque == null) {
-			List<Produit> produits = produitRepo.findAll(ProduitServices.byDiscipline(discipline).and(ProduitServices.nomContains(nom)));
-			return produits;
-		}
-		
-		// RECHERCHE SI NOM ET REF EST PRESENT
-		
-		else if (!nom.isEmpty() && !reference.isEmpty() && discipline == null && marque == null) {
-			List<Produit> produits = produitRepo.findAll(ProduitServices.refContains(reference).and(ProduitServices.nomContains(nom)));
-			return produits;
-		}
-		
-		// RECHERCHE SI MARQUE ET DISCIPLINE EST PRESENT
-			
-		else if (nom.isEmpty() && reference.isEmpty() && discipline != null && marque != null) {
-			List<Produit> produits = produitRepo.findAll(ProduitServices.byDiscipline(discipline).and(ProduitServices.hasMarque(marque)));
-			return produits;
-		}
-		
-		// RECHERCHE SI MARQUE ET REF EST PRESENT
-		
-		else if (nom.isEmpty() && !reference.isEmpty() && discipline == null && marque != null) {
-			List<Produit> produits = produitRepo.findAll(ProduitServices.refContains(reference).and(ProduitServices.hasMarque(marque)));
-			return produits;
-		}	
-		
-		// RECHERCHE SI REF ET DISCIPLINE EST PRESENT
-			
-		else if (nom.isEmpty() && !reference.isEmpty() && discipline != null && marque == null) {
-			List<Produit> produits = produitRepo.findAll(ProduitServices.byDiscipline(discipline).and(ProduitServices.refContains(reference)));
-			return produits;
-		}
-		
-		// RECHERCHE SI TOUS LES CRITERES SONT PRESENTS :
-		
-		else if (!nom.isEmpty() && marque != null && discipline != null && !reference.isEmpty()) {
-				List<Produit> produits = produitRepo.findAll(ProduitServices.hasMarque(marque)
-						.and(ProduitServices.byDiscipline(discipline)
-						.and(ProduitServices.refContains(reference))));
-				return produits;
-			}
-		
-		// SI AUCUN CRITERE :
-		
-		else {
-			List<Produit> produits = produitRepo.findAll();
-			return produits;
-		}
+	public List<ProduitVM> findByCriteria(@RequestParam String nom, @RequestParam String marque, @RequestParam String discipline,
+			@RequestParam String reference, @RequestParam double prixMin, @RequestParam double prixMax, @RequestParam String sort,
+			@RequestParam int pageNbr, @RequestParam int nbrByPage) {
+		return produitService.findByNameCatPriceOrd(nom, reference, marque, discipline, prixMax, prixMin, sort, pageNbr, nbrByPage).stream()
+				.map(ProduitVM::new)
+				.collect(Collectors.toList());
+	}
+	
+	@GetMapping("/count")
+	public long getResultNumberByCriteria(@RequestParam String nom, @RequestParam String marque, @RequestParam String discipline,
+			@RequestParam String reference,
+			@RequestParam double prixMin, @RequestParam double prixMax) {
+		return produitService.findByNameCatPriceOrd(nom, reference, marque, discipline, prixMax, prixMin, "asc", 1, Integer.MAX_VALUE).stream().count();
+	}
+	
+	@GetMapping("/{nom}")
+	public ProduitVM findByReference(@PathVariable String ref) {
+		return new ProduitVM(produitRepo.findByReference(ref));
 	}
 	
 	@PostMapping("/new")
@@ -144,7 +80,7 @@ public class ProduitController extends AbstractController {
 		pro.setActif(produitForm.isActif());
 
 		
-		if (produitRepo.findAll(ProduitServices.nomContains(pro.getNom())).size()>0) {
+		if (produitRepo.findByNom(pro.getNom()).length>0) {
 			throw new FunctionalException("Un produit existe déjà avec ce nom:"+pro.getNom());
 		}
 		
