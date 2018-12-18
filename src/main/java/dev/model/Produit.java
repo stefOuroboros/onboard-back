@@ -26,8 +26,6 @@ public class Produit {
 	int poids;
 	double empatement;
 	int largeurRoues;
-	/*@OneToOne
-	private Caracteristiques caracteristiques;*/
 	@Enumerated(EnumType.STRING)
 	private Marque marque;
 	@Enumerated(EnumType.STRING)
@@ -35,9 +33,6 @@ public class Produit {
 	//private int[] flex;
 	private String description;
 	private Boolean actif;
-	
-	@ManyToMany(mappedBy="articles")
-	private List<Commande> achats;
 	
 	public Produit() {}
 
@@ -59,7 +54,6 @@ public class Produit {
 		this.discipline = discipline;
 		this.description = description;
 		this.actif = actif;
-		this.achats = achats;
 	}
 
 	public Produit(String reference, String nom, double prix, String photos, Integer quantite, int longueur,
@@ -77,9 +71,11 @@ public class Produit {
 		this.largeurRoues = largeurRoues;
 		this.marque = marque;
 		this.discipline = discipline;
-		this.description = description;
 		this.actif = actif;
-		this.achats = achats;
+	}
+	
+	public Long getId() {
+		return id;
 	}
 	
 	public String getReference() {
@@ -194,15 +190,5 @@ public class Produit {
 		this.actif = actif;
 	}
 
-	public List<Commande> getAchats() {
-		return achats;
-	}
-
-	public void setAchats(List<Commande> achats) {
-		this.achats = achats;
-	}
-
-	
-	
 
 }
