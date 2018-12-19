@@ -55,8 +55,8 @@ public class ProduitController extends AbstractController {
 	}
 	
 	@GetMapping("/{nom}")
-	public ProduitVM findByReference(@PathVariable String ref) {
-		return new ProduitVM(produitRepo.findByReference(ref));
+	public Produit findByNom(@PathVariable String nom) {
+		return produitRepo.findByNom(nom);
 	}
 	
 	
