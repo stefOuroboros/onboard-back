@@ -1,7 +1,6 @@
 package dev.controller;
 
 
-import java.io.Console;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,10 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/Angel
 import dev.controller.vm.ProduitVM;
 import dev.exception.FunctionalException;
 import dev.model.Produit;
@@ -85,19 +80,16 @@ public class ProduitController extends AbstractController {
 		pro.setDescription(produitForm.getDescription());
 		pro.setActif(produitForm.isActif());
 
-<<<<<<< HEAD
-		if (produitRepo.findByNom(pro.getNom()).length>0) {
-=======
-		
-		/*if (produitRepo.findByNom(pro.getNom()).length>0) {
->>>>>>> origin/Angel
-			throw new FunctionalException("Un produit existe déjà avec ce nom:"+pro.getNom());
-		}
-		
+//		if (produitRepo.findByNom(pro.getNom()).length>0) {
+//		
+//		/*if (produitRepo.findByNom(pro.getNom()).length>0) {
+//			throw new FunctionalException("Un produit existe déjà avec ce nom:"+pro.getNom());
+//		}*/
+//		
 		produitRepo.save(pro);
 		return new ResponseEntity<>(HttpStatus.OK);
-		
-	}*/
+//		
+	}
 	
 /*	@GetMapping("/{nom}")
 	public Produit modifyUnProduit(@PathVariable String nom) {

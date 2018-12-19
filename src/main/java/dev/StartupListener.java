@@ -13,9 +13,13 @@ import dev.domain.Role;
 import dev.domain.RoleUtilisateur;
 import dev.domain.Utilisateur;
 import dev.domain.Version;
+import dev.model.Achat;
+import dev.model.Commande;
 import dev.model.Discipline;
 import dev.model.Marque;
 import dev.model.Produit;
+import dev.repository.AchatRepo;
+import dev.repository.CommandeRepo;
 import dev.repository.ProduitRepo;
 import dev.repository.UtilisateurRepo;
 import dev.repository.VersionRepo;
@@ -27,15 +31,18 @@ import dev.repository.VersionRepo;
 @Component
 public class StartupListener {
 	
-	@Autowired
-    private ProduitRepo produitRepo;
-	/*@Autowired
-	private CaracteristiquesRepo caracteristiquesRepo;*/
-	
     private String appVersion;
     private VersionRepo versionRepo;
     private PasswordEncoder passwordEncoder;
     private UtilisateurRepo utilisateurRepo;
+    
+    @Autowired
+    private ProduitRepo produitRepo;
+    @Autowired
+    private CommandeRepo commandeRepo;
+    
+    @Autowired
+	private AchatRepo achatRepo;
 
     public StartupListener(@Value("${app.version}") String appVersion, VersionRepo versionRepo, PasswordEncoder passwordEncoder, UtilisateurRepo utilisateurRepo) {
         this.appVersion = appVersion;
@@ -65,6 +72,8 @@ public class StartupListener {
         user2.setMotDePasse(passwordEncoder.encode("superpass"));
         user2.setRoles(Arrays.asList(new RoleUtilisateur(user2, Role.ROLE_UTILISATEUR)));
         this.utilisateurRepo.save(user2);
+        
+        // Création des produits
         
         Produit prod1 = new Produit("1", "TARAB", 459.9, "a",
         		10, 119, 24, 3900, 81.9, 42 , Marque.LOADED, Discipline.DANCING, true);
@@ -102,6 +111,17 @@ public class StartupListener {
         		7, 78, 24, 1600, 00.01 , 55, Marque.CARVER, Discipline.CRUISING, true); 
         this.produitRepo.save(prod9);
         
+        // Création des commandes
+        Achat a1 = new Achat();
+        a1.setArticle(prod1);
+        a1.setNombre(10);
+        
+        Commande com1 = new Commande(1, user2);
+        a1.setCommande(com1);
+        com1.getAchats().add(a1);
+        
+        this.commandeRepo.save(com1);
+        this.achatRepo.save(a1);
     }
 
 }

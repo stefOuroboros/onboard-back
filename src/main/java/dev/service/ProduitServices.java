@@ -70,5 +70,5 @@ public class ProduitServices {
 		return em.createQuery(criteriaQuery).setFirstResult((pageNbr - 1) * nbrByPage).setMaxResults(nbrByPage)
 				.getResultList();
 	}
-	
+
 }
