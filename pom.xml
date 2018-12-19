@@ -108,8 +108,8 @@
             <properties>
                 <jdbc.driver>org.postgresql.Driver</jdbc.driver>
                 <jdbc.url>jdbc:postgresql://localhost:5432/onboard</jdbc.url>
-                <jdbc.user>Alex</jdbc.user>
-                <jdbc.pass>Caline32=!</jdbc.pass>
+                <jdbc.user>postgres</jdbc.user>
+                <jdbc.pass>Jpx39p</jdbc.pass>
                 <jpa.hibernate.ddl>create-drop</jpa.hibernate.ddl>
                 <jdbc.dialect>org.hibernate.dialect.PostgreSQL9Dialect</jdbc.dialect>
                 <jdbc.connections.max.active>5</jdbc.connections.max.active>
@@ -142,8 +142,5 @@
                 </dependency>
             </dependencies>
         </profile>
-
     </profiles>
-
-
 </project>

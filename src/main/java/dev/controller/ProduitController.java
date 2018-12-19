@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import dev.controller.vm.ProduitVM;
 import dev.exception.FunctionalException;
 import dev.model.Produit;
@@ -51,16 +50,14 @@ public class ProduitController extends AbstractController {
 	}
 
 	@GetMapping("/count")
-	public long getResultNumberByCriteria(@RequestParam String nom, @RequestParam String marque,
-			@RequestParam String discipline, @RequestParam String reference, @RequestParam double prixMin,
-			@RequestParam double prixMax) {
-		return produitService.findByNameCatPriceOrd(nom, reference, marque, discipline, prixMax, prixMin, "asc", 1,
-				Integer.MAX_VALUE).stream().count();
+	public long getResultNumberByCriteria(@RequestParam String nom, @RequestParam String marque, @RequestParam String discipline,
+			@RequestParam String reference, @RequestParam double prixMin, @RequestParam double prixMax) {
+		return produitService.findByNameCatPriceOrd(nom, reference, marque, discipline, prixMax, prixMin, "asc", 1, Integer.MAX_VALUE).stream().count();
 	}
-
-	@GetMapping("/{ref}")
-	public ProduitVM findByReference(@PathVariable String ref) {
-		return new ProduitVM(produitRepo.findByReference(ref));
+	
+	@GetMapping("/{nom}")
+	public Produit findByNom(@PathVariable String nom) {
+		return produitRepo.findByNom(nom);
 	}
 
 	@Secured("ROLE_ADMINISTRATEUR")
