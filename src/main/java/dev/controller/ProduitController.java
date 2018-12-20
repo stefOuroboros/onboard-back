@@ -24,8 +24,7 @@ import dev.repository.ProduitRepo;
 import dev.service.ProduitServices;
 
 @CrossOrigin
-@RestController()
-
+@RestController
 @RequestMapping("/produits")
 public class ProduitController extends AbstractController {
 
@@ -65,7 +64,7 @@ public class ProduitController extends AbstractController {
 
 	@Secured("ROLE_ADMINISTRATEUR")
 	@PostMapping("/new")
-	public ResponseEntity<String> ajouterUnProduit(@RequestBody ProduitForm produitForm) throws FunctionalException {
+	public ResponseEntity<String> ajouterUnProduit(@RequestBody ProduitVM produit) throws FunctionalException {
 		Produit pro = new Produit();
 		pro.setReference(produitForm.getReference());
 		pro.setNom(produitForm.getNom());

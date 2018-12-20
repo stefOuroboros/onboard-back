@@ -37,7 +37,7 @@ public class Produit {
 
 	public Produit(String reference, String nom, double prix, String photos, Integer quantite, int longueur,
 			int largeur, int poids, double empatement, int largeurRoues, Marque marque, Discipline discipline,
-			String description, Boolean actif, List<Commande> achats) {
+			String description, Boolean actif) {
 		super();
 		this.reference = reference;
 		this.nom = nom;
