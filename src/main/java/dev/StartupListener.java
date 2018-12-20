@@ -83,7 +83,7 @@ public class StartupListener {
         		10, 123, 24, 2540, 83.2, 65, Marque.LOADED, Discipline.DANCING, true); 
         this.produitRepo.save(prod2);
 
-        Produit prod3 = new Produit("3", "BUTO ODORI ZINGANA", 536,"https://www.google.fr/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwjC2ZH17qvfAhWkzoUKHbgGDPAQjRx6BAgBEAU&url=https%3A%2F%2Fwww.majutsu.fr%2Ffr%2Faccueil%2F59-buto-odori.html&psig=AOvVaw209wLb7c28Av0EAdE-7ASK&ust=1545307942083696",
+        Produit prod3 = new Produit("3", "BUTO ODORI ZINGANA", 536,"https://images.ecosia.org/EVwe2wobDA3VJorgDZfrUnc1OyQ=/0x390/smart/http%3A%2F%2Fwww.majutsu.fr%2F377-large_default%2Fbuto-odori.jpg",
         2, 125, 23, 2500, 88.00, 65, Marque.MAJUTSU, Discipline.DANCING, true); 
         this.produitRepo.save(prod3);
         
