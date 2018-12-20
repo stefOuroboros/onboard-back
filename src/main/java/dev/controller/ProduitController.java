@@ -1,13 +1,16 @@
 package dev.controller;
 
 
+import java.io.Console;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,6 +59,8 @@ public class ProduitController extends AbstractController {
 		return new ProduitVM(produitRepo.findByReference(ref));
 	}
 	
+	
+	@Secured("ROLE_ADMINISTRATEUR")
 	@PostMapping("/new")
 	public ResponseEntity<String> ajouterUnProduit(@RequestBody ProduitVM produit) throws FunctionalException {
 		Produit pro = new Produit();
@@ -75,12 +80,26 @@ public class ProduitController extends AbstractController {
 		pro.setDescription(produit.getDescription());
 		pro.setActif(produit.isActif());
 
-		if (produitRepo.findByNom(pro.getNom()).length>0) {
+		
+		/*if (produitRepo.findByNom(pro.getNom()).length>0) {
 			throw new FunctionalException("Un produit existe déjà avec ce nom:"+pro.getNom());
-		}
+		}*/
 		
 		produitRepo.save(pro);
 		return new ResponseEntity<>(HttpStatus.OK);
 		
+	}
+	
+/*	@GetMapping("/{nom}")
+	public Produit modifyUnProduit(@PathVariable String nom) {
+		Produit[] produit = produitRepo.findByNom(nom);
+
+		return
+	}*/
+	
+	@Secured("ROLE_ADMINISTRATEUR")
+	@DeleteMapping(path="/{reference}") 
+	 public void deleteUnProduit (@PathVariable String reference) {
+		produitRepo.delete(this.produitRepo.findByReference(reference));
 	}
 }

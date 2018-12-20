@@ -7,8 +7,9 @@ import dev.model.Produit;
 
 public interface ProduitRepo extends JpaRepository<Produit, Long>, JpaSpecificationExecutor<Produit>{
 
-	Produit[] findByNom(String nom);
+	Produit findByNom(String nom);
 
 	Produit findByReference(String ref);
+
 	
 }
