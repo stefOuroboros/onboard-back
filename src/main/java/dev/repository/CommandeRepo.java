@@ -6,4 +6,5 @@ import dev.model.Commande;
 
 public interface CommandeRepo extends JpaRepository<Commande, Long>{
 
+	public Commande[] findByNumero(Integer numero);
 }

@@ -1,14 +1,11 @@
 package dev.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
 @Entity
 public class Produit {
@@ -38,7 +35,7 @@ public class Produit {
 
 	public Produit(String reference, String nom, double prix, String photos, Integer quantite, int longueur,
 			int largeur, int poids, double empatement, int largeurRoues, Marque marque, Discipline discipline,
-			String description, Boolean actif, List<Commande> achats) {
+			String description, Boolean actif) {
 		super();
 		this.reference = reference;
 		this.nom = nom;

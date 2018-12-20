@@ -73,6 +73,13 @@ public class StartupListener {
         user2.setRoles(Arrays.asList(new RoleUtilisateur(user2, Role.ROLE_UTILISATEUR)));
         this.utilisateurRepo.save(user2);
         
+        Utilisateur user3 = new Utilisateur();
+        user3.setNom("Angel");
+        user3.setPrenom("Alex");
+        user3.setEmail("alex@dev.fr");
+        user3.setMotDePasse(passwordEncoder.encode("superpass"));
+        user3.setRoles(Arrays.asList(new RoleUtilisateur(user3, Role.ROLE_UTILISATEUR)));
+        this.utilisateurRepo.save(user3);
         // Création des produits
         
         Produit prod1 = new Produit("1", "TARAB", 459.9, "https://loadedboards.b-cdn.net/media/catalog/product/cache/c103632644c20814667dbe658e5c1e6f/t/a/tarab_complete_web_1_7.jpg",

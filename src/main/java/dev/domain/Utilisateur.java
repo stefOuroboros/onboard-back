@@ -17,16 +17,13 @@ public class Utilisateur {
     private String email;
 
     private String motDePasse;
+    
 
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.PERSIST)
     private List<RoleUtilisateur> roles;
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -68,4 +65,5 @@ public class Utilisateur {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
+
 }
