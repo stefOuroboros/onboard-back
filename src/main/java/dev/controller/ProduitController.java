@@ -66,20 +66,20 @@ public class ProduitController extends AbstractController {
 	@PostMapping("/new")
 	public ResponseEntity<String> ajouterUnProduit(@RequestBody ProduitVM produit) throws FunctionalException {
 		Produit pro = new Produit();
-		pro.setReference(produitForm.getReference());
-		pro.setNom(produitForm.getNom());
-		pro.setPrix(produitForm.getPrix());
-		pro.setPhotos(produitForm.getPhotos());
-		pro.setQuantite(produitForm.getQuantite());
-		pro.setLongueur(produitForm.getLongueur());
-		pro.setLargeur(produitForm.getLargeur());
-		pro.setPoids(produitForm.getPoids());
-		pro.setLargeurRoues(produitForm.getLargeurRoues());
-		pro.setEmpatement(produitForm.getEmpatement());
-		pro.setMarque(produitForm.getMarque());
-		pro.setDiscipline(produitForm.getDiscipline());
-		pro.setDescription(produitForm.getDescription());
-		pro.setActif(produitForm.isActif());
+		pro.setReference(produit.getReference());
+		pro.setNom(produit.getNom());
+		pro.setPrix(produit.getPrix());
+		pro.setPhotos(produit.getPhotos());
+		pro.setQuantite(produit.getQuantite());
+		pro.setLongueur(produit.getLongueur());
+		pro.setLargeur(produit.getLargeur());
+		pro.setPoids(produit.getPoids());
+		pro.setLargeurRoues(produit.getLargeurRoues());
+		pro.setEmpatement(produit.getEmpatement());
+		pro.setMarque(produit.getMarque());
+		pro.setDiscipline(produit.getDiscipline());
+		pro.setDescription(produit.getDescription());
+		pro.setActif(produit.isActif());
 
 		
 		 if (produitRepo.findByNom(pro.getNom())!=null) { 
