@@ -12,6 +12,7 @@ public interface ProduitRepo extends JpaRepository<Produit, Long>, JpaSpecificat
 
 	Produit findByReference(String ref);
 
+
 	
 }
 

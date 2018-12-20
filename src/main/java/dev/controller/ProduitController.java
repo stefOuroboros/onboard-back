@@ -1,7 +1,6 @@
 package dev.controller;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import dev.controller.vm.ProduitVM;
 import dev.exception.FunctionalException;
 import dev.model.Produit;
@@ -38,7 +38,10 @@ public class ProduitController extends AbstractController {
 	public List<Produit> getProduits() {
 		return this.produitRepo.findAll();
 	}
-
+	/**
+	 * CRUD du produit pour l'administrateur
+	 * 
+	 * */
 	@GetMapping("/search")
 	public List<ProduitVM> findByCriteria(@RequestParam String nom, @RequestParam String marque,
 			@RequestParam String discipline, @RequestParam String reference, @RequestParam double prixMin,
@@ -64,7 +67,6 @@ public class ProduitController extends AbstractController {
 	@PostMapping("/new")
 	public ResponseEntity<String> ajouterUnProduit(@RequestBody ProduitForm produitForm) throws FunctionalException {
 		Produit pro = new Produit();
-		pro.setNom(produitForm.getNom());
 		pro.setReference(produitForm.getReference());
 		pro.setNom(produitForm.getNom());
 		pro.setPrix(produitForm.getPrix());
@@ -80,19 +82,18 @@ public class ProduitController extends AbstractController {
 		pro.setDescription(produitForm.getDescription());
 		pro.setActif(produitForm.isActif());
 
-		/*
-		 * if (produitRepo.findByNom(pro.getNom()).length>0) { throw new
-		 * FunctionalException("Un produit existe déjà avec ce nom:"+pro.getNom()); }
-		 */
+		
+		 if (produitRepo.findByNom(pro.getNom())!=null) { 
+			 throw new FunctionalException("Un produit existe déjà avec ce nom:"+pro.getNom()); 
+			 
+		 }
+		 
 		produitRepo.save(pro);
 		return new ResponseEntity<>(HttpStatus.OK);
 
 	}
 
-/**
- * CRUD du produit pour l'administrateur
- * 
- * */
+
 
 	@Secured("ROLE_ADMINISTRATEUR")
 	@DeleteMapping("/{reference}")
@@ -100,7 +101,7 @@ public class ProduitController extends AbstractController {
 		produitRepo.delete(this.produitRepo.findByReference(reference));
 	}
 
-	//@Secured("ROLE_ADMINISTRATEUR")
+	@Secured("ROLE_ADMINISTRATEUR")
 	@PostMapping("/modifier/{reference}")
 	public ResponseEntity<String> modifierUnProduit(@PathVariable String reference, @RequestBody Produit prod) {
 		Produit produit = produitRepo.findByReference(reference);

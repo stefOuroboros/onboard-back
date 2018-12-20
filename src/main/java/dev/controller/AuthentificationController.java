@@ -1,11 +1,14 @@
 package dev.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.controller.vm.UtilisateurVM;
+import dev.model.Produit;
 import dev.repository.UtilisateurRepo;
 
 /**
@@ -30,4 +33,7 @@ public class AuthentificationController {
                 .map(user -> ResponseEntity.ok(user))
                 .orElse(ResponseEntity.badRequest().build());
     }
+    
+
+    
 }
