@@ -1,7 +1,6 @@
 package dev.controller;
 
 
-import java.io.Console;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,8 +54,8 @@ public class ProduitController extends AbstractController {
 	}
 	
 	@GetMapping("/{nom}")
-	public ProduitVM findByReference(@PathVariable String ref) {
-		return new ProduitVM(produitRepo.findByReference(ref));
+	public Produit findByNom(@PathVariable String nom) {
+		return produitRepo.findByNom(nom);
 	}
 	
 	
@@ -80,14 +79,15 @@ public class ProduitController extends AbstractController {
 		pro.setDescription(produit.getDescription());
 		pro.setActif(produit.isActif());
 
-		
-		/*if (produitRepo.findByNom(pro.getNom()).length>0) {
-			throw new FunctionalException("Un produit existe déjà avec ce nom:"+pro.getNom());
-		}*/
-		
+//		if (produitRepo.findByNom(pro.getNom()).length>0) {
+//		
+//		/*if (produitRepo.findByNom(pro.getNom()).length>0) {
+//			throw new FunctionalException("Un produit existe déjà avec ce nom:"+pro.getNom());
+//		}*/
+//		
 		produitRepo.save(pro);
 		return new ResponseEntity<>(HttpStatus.OK);
-		
+//		
 	}
 	
 /*	@GetMapping("/{nom}")
