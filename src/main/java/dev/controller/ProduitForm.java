@@ -1,5 +1,6 @@
 package dev.controller;
 
+import dev.repository.MarqueRepo;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import dev.model.Discipline;
@@ -17,14 +18,14 @@ public class ProduitForm {
 	private int poids;
 	private int largeurRoues;
 	private int empatement;
-	private Marque marque;
+	private String marque;
 	private Discipline discipline;
 	private String description;
 	private boolean actif;
 	
 	
 	public ProduitForm(String reference, String nom, int prix, String photos, int quantite, int longueur, int largeur,
-			int poids, int largeurRoues, int empatement, Marque marque, Discipline discipline, String description,
+			int poids, int largeurRoues, int empatement, String marque, Discipline discipline, String description,
 			boolean actif) {
 		super();
 		this.reference = reference;
@@ -144,12 +145,12 @@ public class ProduitForm {
 	}
 
 
-	public Marque getMarque() {
+	public String getMarque() {
 		return marque;
 	}
 
 
-	public void setMarque(Marque marque) {
+	public void setMarque(String marque) {
 		this.marque = marque;
 	}
 
@@ -182,9 +183,5 @@ public class ProduitForm {
 	public void setActif(boolean actif) {
 		this.actif = actif;
 	}
-	
-	
-	
-	
-	
+
 }

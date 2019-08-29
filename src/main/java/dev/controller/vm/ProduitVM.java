@@ -124,7 +124,7 @@ public class ProduitVM {
 		return marque;
 	}
 
-	public void setMarque(Marque marque) {
+	public void setMarque_name(Marque marque) {
 		this.marque = marque;
 	}
 

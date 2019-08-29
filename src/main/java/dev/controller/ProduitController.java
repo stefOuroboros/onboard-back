@@ -4,8 +4,12 @@ package dev.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import dev.model.Discipline;
+import dev.model.Marque;
+import dev.repository.MarqueRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,6 +37,8 @@ public class ProduitController extends AbstractController {
 	ProduitRepo produitRepo;
 	@Autowired
 	ProduitServices produitService;
+    @Autowired
+    MarqueRepo marqueRepo;
 	
 	@GetMapping
 	public List<Produit> getProduits() {
@@ -58,12 +64,64 @@ public class ProduitController extends AbstractController {
 	public Produit findByNom(@PathVariable String nom) {
 		return produitRepo.findByNom(nom);
 	}
-	
-	
+
+
+
+	@PostMapping(value = {"/new"}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<?> ajouterUnProduit(@RequestBody ProduitForm produitForm) throws FunctionalException {
+        Produit pro = new Produit();
+		pro.setNom(produitForm.getNom());
+		pro.setReference(produitForm.getReference());
+		pro.setNom(produitForm.getNom());
+		pro.setPrix(produitForm.getPrix());
+		pro.setPhotos(produitForm.getPhotos());
+		pro.setQuantite(produitForm.getQuantite());
+		pro.setLongueur(produitForm.getLongueur());
+		pro.setLargeur(produitForm.getLargeur());
+		pro.setPoids(produitForm.getPoids());
+		pro.setLargeurRoues(produitForm.getLargeurRoues());
+		pro.setEmpatement(produitForm.getEmpatement());
+		pro.setMarque(marqueRepo.findByNom(produitForm.getMarque()));
+		pro.setDiscipline(produitForm.getDiscipline());
+		pro.setDescription(produitForm.getDescription());
+		pro.setActif(produitForm.isActif());
+		this.produitRepo.save(pro);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+
 	@Secured("ROLE_ADMINISTRATEUR")
-	@PostMapping("/new")
-	public ResponseEntity<String> ajouterUnProduit(@RequestBody ProduitForm produitForm) throws FunctionalException {
-		Produit pro = new Produit();
+	@DeleteMapping(path="/{reference}") 
+	 public void deleteUnProduit (@PathVariable String reference) {
+		produitRepo.delete(this.produitRepo.findByReference(reference));
+	}
+
+	@Secured("ROLE_ADMINISTRATEUR")
+	@PostMapping(value = {"/edit/{reference}"}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<?> editProduct(@PathVariable String reference, @RequestBody ProduitForm produitForm) throws FunctionalException {
+        Produit pro = this.produitRepo.findByReference(reference);
+		pro.setNom(produitForm.getNom());
+		pro.setReference(produitForm.getReference());
+		pro.setNom(produitForm.getNom());
+		pro.setPrix(produitForm.getPrix());
+		pro.setPhotos(produitForm.getPhotos());
+		pro.setQuantite(produitForm.getQuantite());
+		pro.setLongueur(produitForm.getLongueur());
+		pro.setLargeur(produitForm.getLargeur());
+		pro.setPoids(produitForm.getPoids());
+		pro.setLargeurRoues(produitForm.getLargeurRoues());
+		pro.setEmpatement(produitForm.getEmpatement());
+        pro.setMarque(marqueRepo.findByNom(produitForm.getMarque()));
+		pro.setDiscipline(produitForm.getDiscipline());
+		pro.setDescription(produitForm.getDescription());
+		pro.setActif(produitForm.isActif());
+
+		produitRepo.save(pro);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+}
+		/* Produit pro = new Produit("1", "TARAB", 459.9, "http://www.hw-shapes.de/bilder/produkte/gross/Loaded-Tarab-Longboard-Komplettboard_b2.jpg", 10, 119, 24, 3900, 81.9, 42, Marque loaded, Discipline.DANCING, true);
 		pro.setNom(produitForm.getNom());
 		pro.setReference(produitForm.getReference());
 		pro.setNom(produitForm.getNom());
@@ -78,29 +136,29 @@ public class ProduitController extends AbstractController {
 		pro.setMarque(produitForm.getMarque());
 		pro.setDiscipline(produitForm.getDiscipline());
 		pro.setDescription(produitForm.getDescription());
-		pro.setActif(produitForm.isActif());
+		pro.setActif(produitForm.isActif()); */
+
+
+				/*Produit pro = new Produit("1", "TARAB", 459.9, "http://www.hw-shapes.de/bilder/produkte/gross/Loaded-Tarab-Longboard-Komplettboard_b2.jpg", 10, 119, 24, 3900, 81.9, 42, "LOADED", Discipline.DANCING, true);
+		pro.setNom(produitForm.getNom());
+		pro.setReference(produitForm.getReference());
+		pro.setNom(produitForm.getNom());
+		pro.setPrix(produitForm.getPrix());
+		pro.setPhotos(produitForm.getPhotos());
+		pro.setQuantite(produitForm.getQuantite());
+		pro.setLongueur(produitForm.getLongueur());
+		pro.setLargeur(produitForm.getLargeur());
+		pro.setPoids(produitForm.getPoids());
+		pro.setLargeurRoues(produitForm.getLargeurRoues());
+		pro.setEmpatement(produitForm.getEmpatement());
+		pro.setMarque(produitForm.getMarque());
+		pro.setDiscipline(produitForm.getDiscipline());
+		pro.setDescription(produitForm.getDescription());
+		pro.setActif(produitForm.isActif()); */
 
 //		if (produitRepo.findByNom(pro.getNom()).length>0) {
-//		
-//		/*if (produitRepo.findByNom(pro.getNom()).length>0) {
+//
+//		if (produitRepo.findByNom(pro.getNom()).length>0) {
 //			throw new FunctionalException("Un produit existe déjà avec ce nom:"+pro.getNom());
-//		}*/
-//		
-		produitRepo.save(pro);
-		return new ResponseEntity<>(HttpStatus.OK);
-//		
-	}
-	
-/*	@GetMapping("/{nom}")
-	public Produit modifyUnProduit(@PathVariable String nom) {
-		Produit[] produit = produitRepo.findByNom(nom);
-
-		return
-	}*/
-	
-	@Secured("ROLE_ADMINISTRATEUR")
-	@DeleteMapping(path="/{reference}") 
-	 public void deleteUnProduit (@PathVariable String reference) {
-		produitRepo.delete(this.produitRepo.findByReference(reference));
-	}
-}
+//		}
+//

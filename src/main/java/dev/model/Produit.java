@@ -2,13 +2,7 @@ package dev.model;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 @Entity
 public class Produit {
@@ -21,20 +15,20 @@ public class Produit {
 	private double prix;
 	private String photos;
 	private Integer quantite;
-	int longueur;
-	int largeur;
-	int poids;
-	double empatement;
-	int largeurRoues;
-	@Enumerated(EnumType.STRING)
+	private int longueur;
+	private int largeur;
+	private int poids;
+	private double empatement;
+	private int largeurRoues;
+	@ManyToOne
 	private Marque marque;
 	@Enumerated(EnumType.STRING)
 	private Discipline discipline;
 	//private int[] flex;
 	private String description;
 	private Boolean actif;
-	
-	public Produit() {}
+
+	public Produit() {};
 
 	public Produit(String reference, String nom, double prix, String photos, Integer quantite, int longueur,
 			int largeur, int poids, double empatement, int largeurRoues, Marque marque, Discipline discipline,
@@ -73,7 +67,7 @@ public class Produit {
 		this.discipline = discipline;
 		this.actif = actif;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -90,9 +84,7 @@ public class Produit {
 		return nom;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
+	public void setNom(String nom) { this.nom = nom; }
 
 	public double getPrix() {
 		return prix;
